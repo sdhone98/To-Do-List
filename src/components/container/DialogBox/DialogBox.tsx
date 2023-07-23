@@ -1,19 +1,73 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styles from "./DialogBox.module.scss";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 
+import {
+  Dialog,
+  DialogActions,
+  IconButton,
+  TextField,
+  Button,
+  Paper,
+  styled,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
+import AddIcon from "@mui/icons-material/Add";
 
 interface DialogBoxProps {
   isOpen: boolean;
   onClose: () => void;
+  sendTaskToParent: (task: Task) => void;
 }
 
-const DialogBox: FC<DialogBoxProps> = ({ isOpen, onClose }) => {
+interface Task {
+  task_name: string;
+  task_list: string[];
+}
+
+const CustomeDialogActions = styled(DialogActions)({
+  justifyContent: "center",
+  flexDirection: "column",
+});
+
+const DialogBox: FC<DialogBoxProps> = ({
+  isOpen,
+  onClose,
+  sendTaskToParent
+}) => {
+  const [taskName, setTaskName] = useState<string>("");
+  const [mainTaskName, setMainTaskName] = useState<string>("");
+  const [ListOfItems, setListOfItems] = useState<string[]>([]);
+
+  const handleTaskNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaskName(event.target.value);
+  };
+
+  const handleMainTaskNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setMainTaskName(event.target.value);
+  };
+
+  const handleNewTaskClick = () => {
+    setListOfItems((prevList) => [...prevList, taskName]);
+    setTaskName("");
+  };
+
+  const saveTaskInfo = () => {
+
+    const task:Task = {
+      "task_name" : mainTaskName, 
+      "task_list": ListOfItems
+    }
+    // console.log('DIALOG DATA : ', task)
+    sendTaskToParent(task)
+
+    onClose();
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -25,22 +79,79 @@ const DialogBox: FC<DialogBoxProps> = ({ isOpen, onClose }) => {
     //   </div>
     // </div>
 
-<Dialog onClose={onClose} open={isOpen}>
-<DialogTitle id="alert-dialog-title">
-          {"Add New Task"}
+    <Dialog onClose={onClose} open={isOpen}>
+      <CustomeDialogActions>
+        <Paper
+          sx={{
+            minWidth: "500px",
+            maxWidth: "700px",
+            minHeight: "400px",
+            maxHeight: "600px",
+            padding: "10px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <TextField
+            id="standard-basic"
+            label="Task"
+            defaultValue="Enter Task Name"
+            variant="filled"
+            value={mainTaskName}
+            onChange={handleMainTaskNameChange}
+          />
 
-        </DialogTitle>
-        <DialogActions>
+          <div className={styles.addItemDiv}>
+            <TextField
+              id="standard-basic"
+              label="check list item name"
+              variant="filled"
+              value={taskName}
+              onChange={handleTaskNameChange}
+              sx={{
+                width: "90%",
+              }}
+            />
 
-        <TextField id="standard-basic" label="Task Name" variant="standard" />
+            <IconButton aria-label="add" onClick={handleNewTaskClick}>
+              <AddIcon color="primary" />
+            </IconButton>
+          </div>
 
-          <Button onClick={onClose}>Disagree</Button>
-          <Button onClick={onClose} autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
-</Dialog>
+          <List>
+            <ListItem
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {ListOfItems.map((item) => (
+                <ListItemText key={item} primary={item} />
+              ))}
+              {/* <ListItemText primary="Single-line item" /> */}
+            </ListItem>
+          </List>
 
+          <Paper
+            sx={{
+              boxShadow: "none",
+              display: "flex",
+              flexDirection: "row",
+              // alignItems: "center",
+              // justifyContent: "center",
+              position: "absolute",
+              bottom: "0",
+              alignSelf: "center",
+            }}
+          >
+            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={saveTaskInfo} autoFocus>
+              Add
+            </Button>
+          </Paper>
+        </Paper>
+      </CustomeDialogActions>
+    </Dialog>
   );
 };
 
