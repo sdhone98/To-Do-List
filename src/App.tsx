@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { CardContainer, NavAppBar, DialogBox } from "./components";
 
 interface Task {
+  task_id: string;
   task_name: string;
   task_list: string[];
 }
@@ -37,7 +38,10 @@ function App() {
   return (
     <>
       <NavAppBar onOpenDialog={handleOpenDialog} />
+      <div style={{paddingTop:'60px'}}>
+
       <CardContainer items={payload}/>
+      </div>
       <DialogBox
         isOpen={dialogOpen}
         onClose={handleCloseDialog}

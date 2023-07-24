@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import styles from "./DialogBox.module.scss";
+import { uuidv4 } from "./../../../src/utils/utils"
 
 import {
   Dialog,
@@ -23,6 +24,7 @@ interface DialogBoxProps {
 }
 
 interface Task {
+  task_id: string;
   task_name: string;
   task_list: string[];
 }
@@ -59,6 +61,7 @@ const DialogBox: FC<DialogBoxProps> = ({
   const saveTaskInfo = () => {
 
     const task:Task = {
+      "task_id": uuidv4(),
       "task_name" : mainTaskName, 
       "task_list": ListOfItems
     }
@@ -126,7 +129,7 @@ const DialogBox: FC<DialogBoxProps> = ({
               }}
             >
               {ListOfItems.map((item) => (
-                <ListItemText key={item} primary={item} />
+                <ListItemText key={ListOfItems.indexOf(item)} primary={item} />
               ))}
               {/* <ListItemText primary="Single-line item" /> */}
             </ListItem>
