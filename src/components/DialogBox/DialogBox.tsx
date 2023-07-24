@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import styles from "./DialogBox.module.scss";
-import { uuidv4 } from "./../../../src/utils/utils"
+import { uuidv4 } from "./../../../src/utils/utils";
 
 import {
   Dialog,
@@ -13,6 +13,9 @@ import {
   List,
   ListItem,
   ListItemText,
+  Box,
+  Grid,
+  Divider
 } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -37,7 +40,7 @@ const CustomeDialogActions = styled(DialogActions)({
 const DialogBox: FC<DialogBoxProps> = ({
   isOpen,
   onClose,
-  sendTaskToParent
+  sendTaskToParent,
 }) => {
   const [taskName, setTaskName] = useState<string>("");
   const [mainTaskName, setMainTaskName] = useState<string>("");
@@ -54,19 +57,19 @@ const DialogBox: FC<DialogBoxProps> = ({
   };
 
   const handleNewTaskClick = () => {
-    setListOfItems((prevList) => [...prevList, taskName]);
+
+    taskName.length > 0 && setListOfItems((prevList) => [...prevList, taskName]);
     setTaskName("");
   };
 
   const saveTaskInfo = () => {
-
-    const task:Task = {
-      "task_id": uuidv4(),
-      "task_name" : mainTaskName, 
-      "task_list": ListOfItems
-    }
+    const task: Task = {
+      task_id: uuidv4(),
+      task_name: mainTaskName,
+      task_list: ListOfItems,
+    };
     // console.log('DIALOG DATA : ', task)
-    sendTaskToParent(task)
+    sendTaskToParent(task);
 
     onClose();
   };
@@ -93,6 +96,8 @@ const DialogBox: FC<DialogBoxProps> = ({
             padding: "10px",
             display: "flex",
             flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <TextField
@@ -102,9 +107,21 @@ const DialogBox: FC<DialogBoxProps> = ({
             variant="filled"
             value={mainTaskName}
             onChange={handleMainTaskNameChange}
+            sx={{
+              width: "95%",
+              padding: "5px",
+            }}
           />
 
-          <div className={styles.addItemDiv}>
+          <Box
+            sx={{
+              width: "95%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "5px",
+            }}
+          >
             <TextField
               id="standard-basic"
               label="check list item name"
@@ -119,39 +136,43 @@ const DialogBox: FC<DialogBoxProps> = ({
             <IconButton aria-label="add" onClick={handleNewTaskClick}>
               <AddIcon color="primary" />
             </IconButton>
-          </div>
+          </Box>
 
-          <List>
-            <ListItem
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              {ListOfItems.map((item) => (
-                <ListItemText key={ListOfItems.indexOf(item)} primary={item} />
-              ))}
-              {/* <ListItemText primary="Single-line item" /> */}
-            </ListItem>
-          </List>
-
-          <Paper
+          <Box
             sx={{
-              boxShadow: "none",
-              display: "flex",
-              flexDirection: "row",
-              // alignItems: "center",
-              // justifyContent: "center",
-              position: "absolute",
-              bottom: "0",
-              alignSelf: "center",
+              width: "95%",
+              minHeight: "250px",
+              maxHeight: "400px",
+              overflowY: "auto",
+              "::-webkit-scrollbar": {
+                display: "none",
+              },
             }}
           >
-            <Button onClick={onClose}>Cancel</Button>
-            <Button onClick={saveTaskInfo} autoFocus>
+            <List sx={{padding: "20px"}}>
+            {ListOfItems.map((item) => 
+            <ListItem button>
+              <ListItemText primary={item}/>
+            </ListItem>
+            )}
+            <Divider />
+            </List>
+          </Box>
+
+          <Box
+            sx={{
+              width: "50%",
+              display: "flex",
+              justifyContent: "space-around",
+            }}
+          >
+            <Button variant="contained" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button variant="contained" onClick={saveTaskInfo} autoFocus>
               Add
             </Button>
-          </Paper>
+          </Box>
         </Paper>
       </CustomeDialogActions>
     </Dialog>

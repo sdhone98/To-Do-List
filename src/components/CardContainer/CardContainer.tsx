@@ -35,10 +35,12 @@ const CardContainer: FC<CardContainerProps> = ({ items }) => {
           !removeTask.includes(task.task_id) && (
             <Card
               sx={{
-                minWidth: 275,
-                maxWidth: 350,
-                minHeight: 200,
-                maxHeight: 350,
+                minWidth: "275px",
+                maxWidth: "350px",
+                minHeight: "200px",
+                maxHeight: "350px",
+                display: "flex",
+                flexDirection: "row",
                 margin: 2,
                 background: "#c7c8c9",
                 position: "relative",
@@ -52,10 +54,11 @@ const CardContainer: FC<CardContainerProps> = ({ items }) => {
                 <Typography variant="body2">
                   <Box
                     sx={{
-                      minWidth: 250,
-                      maxWidth: 300,
-                      minHeight: 100,
-                      maxHeight: 200,
+                      minWidth: "250px",
+                      maxWidth: "300px",
+                      minHeight: "100px",
+                      maxHeight: "200px",
+                      paddingTop: "10px",
 
                       overflowY: "auto",
                       "::-webkit-scrollbar": {
