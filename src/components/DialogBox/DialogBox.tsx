@@ -14,8 +14,8 @@ import {
   ListItem,
   ListItemText,
   Box,
-  Grid,
-  Divider
+  Divider,
+  Typography,
 } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -57,8 +57,8 @@ const DialogBox: FC<DialogBoxProps> = ({
   };
 
   const handleNewTaskClick = () => {
-
-    taskName.length > 0 && setListOfItems((prevList) => [...prevList, taskName]);
+    taskName.length > 0 &&
+      setListOfItems((prevList) => [...prevList, taskName]);
     setTaskName("");
   };
 
@@ -72,6 +72,9 @@ const DialogBox: FC<DialogBoxProps> = ({
     sendTaskToParent(task);
 
     onClose();
+    setMainTaskName("")
+    setTaskName("")
+    setListOfItems([])
   };
 
   if (!isOpen) return null;
@@ -149,13 +152,14 @@ const DialogBox: FC<DialogBoxProps> = ({
               },
             }}
           >
-            <List sx={{padding: "20px"}}>
-            {ListOfItems.map((item) => 
-            <ListItem button>
-              <ListItemText primary={item}/>
-            </ListItem>
-            )}
-            <Divider />
+            <List sx={{ padding: "20px"}}>
+              {ListOfItems.map((item) => (
+                <ListItem button>
+
+                  <ListItemText primary={item} />
+                </ListItem>
+              ))}
+              <Divider />
             </List>
           </Box>
 
@@ -169,7 +173,7 @@ const DialogBox: FC<DialogBoxProps> = ({
             <Button variant="contained" onClick={onClose}>
               Cancel
             </Button>
-            <Button variant="contained" onClick={saveTaskInfo} autoFocus>
+            <Button variant="contained" onClick={()=>mainTaskName.length && ListOfItems.length && saveTaskInfo()} autoFocus>
               Add
             </Button>
           </Box>
