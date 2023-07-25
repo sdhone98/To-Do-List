@@ -1,4 +1,4 @@
-import React, { FC, Children, useState } from "react";
+import { FC, useState } from "react";
 import styles from "./CardContainer.module.scss";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -42,7 +42,8 @@ const CardContainer: FC<CardContainerProps> = ({ items }) => {
                 display: "flex",
                 flexDirection: "row",
                 margin: 2,
-                background: "#c7c8c9",
+                background: "#eee",
+                boxShadow: "0 8px 8px -4px lightblue",
                 position: "relative",
                 overflowY: "auto",
               }}
@@ -118,7 +119,7 @@ const CardContainer: FC<CardContainerProps> = ({ items }) => {
                       color: "#d11a2a",
                     },
                   }}
-                  onClick={(e) => setRemoveTask([...removeTask, task.task_id])}
+                  onClick={() => setRemoveTask([...removeTask, task.task_id])}
                 >
                   <DeleteIcon />
                 </Fab>
