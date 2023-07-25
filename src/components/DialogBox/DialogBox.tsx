@@ -46,6 +46,8 @@ const DialogBox: FC<DialogBoxProps> = ({
   const [mainTaskName, setMainTaskName] = useState<string>("");
   const [ListOfItems, setListOfItems] = useState<string[]>([]);
 
+
+
   const handleTaskNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskName(event.target.value);
   };
