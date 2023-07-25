@@ -13,6 +13,8 @@ interface Task {
 function App() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [payload, setPayload] = useState<Task[]>([]);
+  const [searchString, setSearchString] = useState<string>("");
+
 
 
   // const handleListOfItemsReceived = (items: Task) => {
@@ -32,15 +34,15 @@ function App() {
 
   const handleSaveTask = (task: Task) => {
     setPayload((prevPayload) => [...prevPayload, task]);
-    console.log('MAIN APP : ',task)
   };
+
 
   return (
     <>
-      <NavAppBar onOpenDialog={handleOpenDialog} />
+      <NavAppBar onOpenDialog={handleOpenDialog} onSearchChange={setSearchString}/>
       <div style={{paddingTop:'60px'}}>
 
-      <CardContainer items={payload}/>
+      <CardContainer items={payload} searchString={searchString}/>
       </div>
       <DialogBox
         isOpen={dialogOpen}
