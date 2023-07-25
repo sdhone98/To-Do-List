@@ -37,7 +37,7 @@ const Search = styled('div')(({ theme }) => ({
 
 interface NavAppBarProps {
     onOpenDialog: () => void;
-  }
+    onSearchChange: (searchString: string) => void;  }
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
@@ -64,7 +64,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-  const NavAppBar: React.FC<NavAppBarProps> = ({ onOpenDialog }) => {
+  const NavAppBar: React.FC<NavAppBarProps> = ({ onOpenDialog , onSearchChange }) => {
+
+
     return (
 
         <Box sx={{ flexGrow: 1 }}>
@@ -87,7 +89,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
-                            onChange={() => { console.log(1)}}
+                            onChange={(e) => {onSearchChange(e.target.value)}}
                         />
                     </Search>
 
