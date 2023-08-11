@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import styles from "./DialogBox.module.scss";
 import { uuidv4 } from "./../../../src/utils/utils";
 
 import {
@@ -15,7 +14,6 @@ import {
   ListItemText,
   Box,
   Divider,
-  Typography,
 } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
