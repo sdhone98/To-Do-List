@@ -34,7 +34,7 @@ const CardContainer: FC<CardContainerProps> = ({ items, searchString }) => {
     <div className={styles.mainContainer}>
       {items.map(
         (task) =>
-          !removeTask.includes(task.task_id) && !task.task_name.includes(searchString) && (
+          !removeTask.includes(task.task_id) && (
             <Card
               sx={{
                 minWidth: "275px",
@@ -44,14 +44,14 @@ const CardContainer: FC<CardContainerProps> = ({ items, searchString }) => {
                 display: "flex",
                 flexDirection: "row",
                 margin: 2,
-                background: "#eee",
+                background: "linear-gradient(to right bottom, #1976d2, #056dd3)",
                 boxShadow: "0 8px 8px -4px lightblue",
                 position: "relative",
                 overflowY: "auto",
               }}
             >
               <CardContent>
-                <Typography variant="h5" component="div" fontWeight={500}>
+                <Typography variant="h5" component="div" fontWeight={700}>
                   {task.task_name}
                 </Typography>
                 <Typography variant="body2">
@@ -74,6 +74,8 @@ const CardContainer: FC<CardContainerProps> = ({ items, searchString }) => {
                         sx={{
                           display: "flex",
                           flexDirection: "column",
+                          alignItems: "start",
+                          padding: "5px",
                         }}
                       >
                         {task.task_list.map((item) => (
@@ -84,6 +86,9 @@ const CardContainer: FC<CardContainerProps> = ({ items, searchString }) => {
                               onChange={() =>
                                 setCheckItem([...checkItem, item])
                               }
+                              sx={{
+                                padding: "3px",
+                              }}
                             />
                             <ListItemText
                               key={task.task_list.indexOf(item)}
@@ -93,7 +98,9 @@ const CardContainer: FC<CardContainerProps> = ({ items, searchString }) => {
                                   ? {
                                       textDecoration: "line-through",
                                     }
-                                  : {}
+                                  : {
+                                  maxWidth: "-webkit-max-content"
+                                    }
                               }
                             />
                           </div>
