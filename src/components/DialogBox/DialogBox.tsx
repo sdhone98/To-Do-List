@@ -52,7 +52,7 @@ const DialogBox: FC<DialogBoxProps> = ({
         setTaskName("");
     }
     const closePop = () => {
-        onClose()
+        onClose();
         setTaskName("")
         setListOfItems([])
 
@@ -78,14 +78,16 @@ const DialogBox: FC<DialogBoxProps> = ({
 
     return (
 
-        <Dialog onClose={onClose} open={isOpen}>
+        <Dialog onClose={closePop} open={isOpen}>
             <CustomeDialogActions>
                 <Paper
                     sx={{
-                        minWidth: "500px",
-                        maxWidth: "700px",
+                        width: "100%",
+                        minWidth: "400px",
+                        maxWidth: "500px",
+                        height: "100%",
                         minHeight: "400px",
-                        maxHeight: "600px",
+                        maxHeight: "500px",
                         padding: "10px",
                         display: "flex",
                         flexDirection: "column",
@@ -124,27 +126,33 @@ const DialogBox: FC<DialogBoxProps> = ({
                             }}
                         />
 
-                        <IconButton aria-label="add" onClick={addNewTaskToList}>
+                        <IconButton aria-label="add" onClick={addNewTaskToList}
+                        sx={{
+                            width: "10%"
+                        }}>
                             <AddIcon color="primary"/>
                         </IconButton>
                     </Box>
 
                     <Box
                         sx={{
-                            width: "95%",
-                            minHeight: "250px",
-                            maxHeight: "400px",
+                            width: "100%",
+                            height: "100%",
                             overflowY: "auto",
                             "::-webkit-scrollbar": {
                                 display: "none",
                             },
                         }}
                     >
-                        <List sx={{padding: "20px"}}>
-                            {ListOfItems.map((item) => (
-                                <ListItem button>
+                        <List sx={{padding: "20px 10px 20px 10px",
 
-                                    <ListItemText primary={item}/>
+                        }}>
+                            {ListOfItems.map((item, index) => (
+                                <ListItem button >
+
+                                    <ListItemText sx={{
+                                        overflow: "hidden"
+                                    }} primary={index + " : "  + item}/>
                                 </ListItem>
                             ))}
                             <Divider/>
