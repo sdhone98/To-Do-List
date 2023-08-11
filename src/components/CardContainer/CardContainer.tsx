@@ -30,9 +30,10 @@ interface CardContainerProps {
 const CardContainer: FC<CardContainerProps> = ({ items, searchString }) => {
   const [checkItem, setCheckItem] = useState<string[]>([]);
   const [removeTask, setRemoveTask] = useState<string[]>([]);
+  const searchList =  searchString ? items.filter(i => i.task_name.includes(searchString)): items
   return (
     <div className={styles.mainContainer}>
-      {items.map(
+      {searchList.map(
         (task) =>
           !removeTask.includes(task.task_id) && (
             <Card
