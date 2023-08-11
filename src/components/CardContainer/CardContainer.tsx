@@ -91,6 +91,9 @@ const CardContainer: FC<CardContainerProps> = ({ items, searchString }) => {
                               }
                               sx={{
                                 padding: "3px",
+                                "&.Mui-checked":  {
+                                  color: '#071c33',
+                                }
                               }}
                             />
                             <ListItemText
@@ -125,9 +128,11 @@ const CardContainer: FC<CardContainerProps> = ({ items, searchString }) => {
                   aria-label="add"
                   size="small"
                   sx={{
-                    background: "transparent",
+
+                    // background: "#04498d",
+                    color: "rgba(255, 255, 255, .5)",
                     ":hover": {
-                      background: "transparent",
+                      // background: "transparent",
                       color: "#d11a2a",
                     },
                   }}
