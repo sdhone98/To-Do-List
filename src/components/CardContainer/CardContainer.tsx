@@ -32,7 +32,6 @@ const CardContainer: FC<CardContainerProps> = ({ items, searchString }) => {
   const [removeTask, setRemoveTask] = useState<string[]>([]);
   const searchList =  searchString ? items.filter(i => i.task_name.toUpperCase().includes(searchString.toUpperCase())): items
 
-  console.log("SEARCH : ", searchString)
 
   return (
     <div className={styles.mainContainer}>
