@@ -1,26 +1,22 @@
-import * as React from 'react';  
-import { AppBar, Toolbar, Button, Box } from "@mui/material";
-import { Typography } from "@mui/material";
+import * as React from 'react';
+import {AppBar, Toolbar, Button, Box} from "@mui/material";
+import {Typography} from "@mui/material";
 import AddIcon from "@material-ui/icons/Add";
-import { styled, alpha } from '@mui/material/styles';
+import {styled, alpha} from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
 
-
-
-
-
-
 const style = {
     // border: "1px solid white",
-    marginLeft: "auto",
+    marginLeft: "0",
     color: "white",
+
     // background: 'blue'
-  };
+};
 
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({theme}) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -37,9 +33,10 @@ const Search = styled('div')(({ theme }) => ({
 
 interface NavAppBarProps {
     onOpenDialog: () => void;
-    onSearchChange: (searchString: string) => void;  }
+    onSearchChange: (searchString: string) => void;
+}
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({theme}) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -49,7 +46,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({theme}) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
@@ -64,54 +61,66 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-  const NavAppBar: React.FC<NavAppBarProps> = ({ onOpenDialog , onSearchChange }) => {
+const NavAppBar: React.FC<NavAppBarProps> = ({onOpenDialog, onSearchChange}) => {
 
 
     return (
 
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
-                <Toolbar>
+                <Toolbar sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between"
+                }}>
 
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                        sx={{
+                            display: {xs: 'none', sm: 'block', fontWeight: "700"}
+                        }}
                     >
                         To Do List
                     </Typography>
 
-                    <Search>
+                    <Search sx={{
+                        minWidth: "400px",
+                        maxWidth: "750px"
+                    }}>
                         <SearchIconWrapper>
-                            <SearchIcon />
+                            <SearchIcon/>
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                            onChange={(e) => {onSearchChange(e.target.value)}}
+                            inputProps={{'aria-label': 'search'}}
+                            onChange={(e) => {
+                                onSearchChange(e.target.value)
+                            }}
                         />
                     </Search>
 
                     <Button
-                          sx={style}
-                          // color="secondary"
-                          startIcon={<AddIcon />}
-                          variant="contained"
-                          size="medium"
-                          onClick={onOpenDialog}
-                        >
-                          Add
-                        </Button>
+                        sx={style}
+                        // color="secondary"
+                        startIcon={<AddIcon/>}
+                        variant="contained"
+                        size="medium"
+                        onClick={onOpenDialog}
+                    >
+                        Add
+                    </Button>
 
                 </Toolbar>
+
 
             </AppBar>
 
         </Box>
     );
-  };
+};
 
-  export default NavAppBar; // Make sure to use the 'default' export
+export default NavAppBar; // Make sure to use the 'default' export
 
   
