@@ -46,8 +46,6 @@ const DialogBox: FC<DialogBoxProps> = ({
 
 
     const addNewTaskToList = () => {
-        ListOfItems.map(i => console.log(">>> ", i))
-
         taskName && ListOfItems.map(i => i != taskName) && setListOfItems((prevList) => [...prevList, taskName]);
         setTaskName("");
     }
@@ -65,7 +63,6 @@ const DialogBox: FC<DialogBoxProps> = ({
             task_name: mainTaskName,
             task_list: ListOfItems,
         };
-        // console.log('DIALOG DATA : ', task)
         sendTaskToParent(task);
 
         onClose();
@@ -88,7 +85,7 @@ const DialogBox: FC<DialogBoxProps> = ({
                         height: "100%",
                         minHeight: "400px",
                         maxHeight: "500px",
-                        padding: "10px",
+                        padding: "5px 10px 5px 10px",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
@@ -138,6 +135,7 @@ const DialogBox: FC<DialogBoxProps> = ({
                         sx={{
                             width: "100%",
                             height: "100%",
+                            minHeight: "200px",
                             overflowY: "auto",
                             "::-webkit-scrollbar": {
                                 display: "none",
@@ -148,10 +146,15 @@ const DialogBox: FC<DialogBoxProps> = ({
 
                         }}>
                             {ListOfItems.map((item, index) => (
-                                <ListItem button >
+                                <ListItem button sx={{
+                                    ":nth-child(even)": {
+                                        background: "#eaf0f6",
+                                    },
+
+                                }}>
 
                                     <ListItemText sx={{
-                                        overflow: "hidden"
+                                        overflow: "hidden",
                                     }} primary={index + " : "  + item}/>
                                 </ListItem>
                             ))}

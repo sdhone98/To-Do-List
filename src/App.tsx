@@ -8,21 +8,11 @@ interface Task {
   task_list: string[];
 }
 
-// const payload:Task[] = [];
-
 function App() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [payload, setPayload] = useState<Task[]>([]);
   const [searchString, setSearchString] = useState<string>("");
 
-
-
-  // const handleListOfItemsReceived = (items: Task) => {
-  //   console.log("DAT : ", items);
-  //   payload.push(items)
-  //   console.log(payload)
-
-  // };
 
   const handleOpenDialog = () => {
     setDialogOpen(true);
